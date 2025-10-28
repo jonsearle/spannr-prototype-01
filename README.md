@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Spannr Prototype 01
 
-## Getting Started
+A garage website and admin portal prototype that dynamically adapts based on opening hours, emphasizing callback requests when closed.
 
-First, run the development server:
+## Tech Stack
+
+- **Framework:** Next.js 14+ (App Router) with TypeScript
+- **Styling:** Tailwind CSS
+- **Database:** Supabase (PostgreSQL + Storage)
+- **Email:** Resend
+- **Hosting:** Netlify
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── [slug]/              # Public garage site
+│   ├── admin/[slug]/        # Admin portal
+│   ├── api/                 # API routes
+│   └── layout.tsx
+├── components/
+│   ├── garage/              # Public components
+│   └── admin/               # Admin components
+├── lib/
+│   ├── supabase/            # DB client & queries
+│   ├── email/               # Email service
+│   └── utils/               # Helpers (timezone, etc.)
+└── types/                   # TypeScript types
+```
+
+## Setup Instructions
+
+### 1. Environment Variables
+
+Copy the environment template and fill in your values:
+
+```bash
+cp env.template .env.local
+```
+
+Required environment variables:
+- `NEXT_PUBLIC_SUPABASE_URL` - Your Supabase project URL
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Your Supabase anonymous key
+- `SUPABASE_SERVICE_ROLE_KEY` - Your Supabase service role key
+- `RESEND_API_KEY` - Your Resend API key
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+### 3. Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 4. Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## GitHub Setup
 
-To learn more about Next.js, take a look at the following resources:
+To connect this repository to GitHub:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Create a new repository on GitHub
+2. Add the remote origin:
+   ```bash
+   git remote add origin https://github.com/yourusername/spannr-prototype-01.git
+   ```
+3. Push the initial commit:
+   ```bash
+   git push -u origin main
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Netlify Deployment
 
-## Deploy on Vercel
+This project is configured for Netlify deployment:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Connect your GitHub repository to Netlify
+2. Set the environment variables in Netlify dashboard
+3. Deploy automatically on push to main branch
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Next Steps
+
+- [ ] Set up Supabase database schema
+- [ ] Implement garage website components
+- [ ] Build admin portal interface
+- [ ] Add callback request functionality
+- [ ] Implement opening hours logic
+- [ ] Add email templates
+
+## Development Notes
+
+This is a functional prototype for research interviews with garage owners. The focus is on demonstrating core value - capturing out-of-hours demand through dynamic open/closed states and callback requests.
