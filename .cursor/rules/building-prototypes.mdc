@@ -1,0 +1,47 @@
+# Rule: Prototype Mode
+
+## Goal
+To ensure all generated code, database schemas, and PRDs are built for a **prototype**, not production.
+
+## Definition of Prototype Mode
+Prototype mode prioritises **speed, clarity, and demonstration value** over scalability, security, or full architecture.
+
+## Guidance
+
+1. **Scope**
+   - Focus on one environment only (no staging or production separation).
+   - Assume single user or single organisation use.
+   - No authentication or role-based access control unless explicitly required.
+
+2. **Database**
+   - Use simple integer or serial primary keys instead of UUIDs.
+   - Avoid Row Level Security (RLS) and complex permission policies.
+   - Only add constraints that prevent obvious data corruption (e.g. unique keys, NOT NULL, simple checks).
+   - Default timezone: "Europe/London" unless otherwise specified.
+   - Seed minimal sample data to enable UI testing.
+
+3. **Backend / API**
+   - No authentication middleware by default.
+   - Minimal error handling—just enough for development clarity.
+   - Endpoints should return straightforward JSON, not paginated or filtered unless requested.
+
+4. **Frontend / UI**
+   - Focus on core flows and UI states.
+   - Style lightly; use placeholder assets and simple mock data where appropriate.
+
+5. **Deliverables**
+   - Code should be clear and functional but not production-hardened.
+   - Prefer fewer files and simple folder structure.
+   - Optimise for quick iteration and demonstration.
+
+6. **Language**
+   - Avoid over-engineering terms like “scalable,” “enterprise,” or “multi-tenant” unless asked for.
+   - When unsure, choose the simplest viable approach.
+
+---
+
+## Output Expectation
+All generated artefacts (PRDs, code, database schemas, migrations) should assume **prototype-level fidelity**: suitable for demos, internal tests, and rapid iteration — not for production deployment.
+---
+alwaysApply: true
+---
