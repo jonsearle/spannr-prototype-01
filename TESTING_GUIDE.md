@@ -23,7 +23,6 @@
 
 3. **Sample Garage Data**
    - Ensure you have at least one garage in your `garages` table with:
-     - `slug` field (e.g., "test-garage")
      - `timezone` field (e.g., "Europe/London")
 
 ## Running the Application
@@ -45,9 +44,8 @@
 
 1. **Navigate to admin opening hours page**:
    ```
-   http://localhost:3000/admin/[your-garage-slug]/opening-hours
+   http://localhost:3000/admin/opening-hours
    ```
-   Example: `http://localhost:3000/admin/test-garage/opening-hours`
 
 2. **Test the form**:
    - Toggle days on/off using the day buttons
@@ -64,9 +62,8 @@
 
 1. **Navigate to public garage page**:
    ```
-   http://localhost:3000/[your-garage-slug]
+   http://localhost:3000/
    ```
-   Example: `http://localhost:3000/test-garage`
 
 2. **Check the status badge**:
    - Top-left corner should show "We're open" or "We're closed"
@@ -79,19 +76,14 @@
 
 ### GET Opening Hours (Public)
 ```bash
-curl http://localhost:3000/api/garages/[your-garage-slug]/opening-hours
-```
-
-Example:
-```bash
-curl http://localhost:3000/api/garages/test-garage/opening-hours
+curl http://localhost:3000/api/opening-hours
 ```
 
 Should return JSON array with 7 days of opening hours.
 
 ### POST Opening Hours (Protected)
 ```bash
-curl -X POST http://localhost:3000/api/garages/[your-garage-slug]/opening-hours \
+curl -X POST http://localhost:3000/api/opening-hours \
   -H "Content-Type: application/json" \
   -H "x-admin-secret: your-admin-write-secret" \
   -d '{
@@ -125,7 +117,7 @@ curl -X POST http://localhost:3000/api/garages/[your-garage-slug]/opening-hours 
 
 ## Troubleshooting
 
-- **"Garage not found"**: Ensure you have a garage in the database with the slug you're using
+- **"Garage not found"**: Ensure you have at least one garage in the database
 - **"Unauthorized"**: Check that `ADMIN_WRITE_SECRET` matches `NEXT_PUBLIC_ADMIN_WRITE_SECRET` in `.env.local`
 - **Status always shows "closed"**: Verify opening hours are saved and check garage timezone
 - **API errors**: Check browser console and server logs for error messages
@@ -135,11 +127,11 @@ curl -X POST http://localhost:3000/api/garages/[your-garage-slug]/opening-hours 
 - [ ] Database migration executed successfully
 - [ ] Environment variables configured
 - [ ] Dev server running (`npm run dev`)
-- [ ] Admin page loads at `/admin/[slug]/opening-hours`
+- [ ] Admin page loads at `/admin/opening-hours`
 - [ ] Can toggle days on/off
 - [ ] Can set open/close times
 - [ ] Can save opening hours
-- [ ] Public page shows status badge at `/[slug]`
+- [ ] Public page shows status badge at `/`
 - [ ] Status badge shows correct state (open/closed)
 - [ ] API GET endpoint returns opening hours
 - [ ] API POST endpoint updates opening hours

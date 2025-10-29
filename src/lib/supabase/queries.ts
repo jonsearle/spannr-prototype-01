@@ -2,47 +2,6 @@ import { supabaseAdmin } from './client'
 import type { Garage, OpeningHours } from '@/types'
 
 /**
- * Get garage by slug (legacy, for compatibility)
- */
-export async function getGarageBySlug(slug: string): Promise<Garage | null> {
-  const { data, error } = await supabaseAdmin
-    .from('garages')
-    .select('*')
-    .eq('slug', slug)
-    .single()
-
-  if (error) {
-    if (error.code === 'PGRST116') {
-      return null // Not found
-    }
-    throw error
-  }
-
-  // Map database columns (snake_case) to TypeScript interface (camelCase)
-  return {
-    id: data.id,
-    slug: data.slug,
-    businessName: data.business_name,
-    oneLineDescription: data.one_line_description,
-    aboutText: data.about_text,
-    heroImageUrl: data.hero_image_url,
-    timezone: data.timezone,
-    addressLine1: data.address_line1,
-    addressLine2: data.address_line2,
-    addressLine3: data.address_line3,
-    addressLine4: data.address_line4,
-    postcode: data.postcode,
-    phone: data.phone,
-    email: data.email,
-    googleReviewsUrl: data.google_reviews_url,
-    callbackContactName: data.callback_contact_name,
-    callbackContactEmail: data.callback_contact_email,
-    createdAt: data.created_at,
-    updatedAt: data.updated_at,
-  } as Garage
-}
-
-/**
  * Get the single garage (for prototype - assumes only one garage exists)
  */
 export async function getSingleGarage(): Promise<Garage | null> {

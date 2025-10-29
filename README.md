@@ -15,8 +15,7 @@ A garage website and admin portal prototype that dynamically adapts based on ope
 ```
 src/
 ├── app/
-│   ├── [slug]/              # Public garage site
-│   ├── admin/[slug]/        # Admin portal
+│   ├── admin/               # Admin portal
 │   ├── api/                 # API routes
 │   └── layout.tsx
 ├── components/
