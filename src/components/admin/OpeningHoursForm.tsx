@@ -60,10 +60,7 @@ const splitTime = (time: string | undefined): [string, string] => {
 
 // Helper to combine hour and minute into time string
 const combineTime = (hour: string, minute: string): string => {
-  // Ensure zero-padding for HH:MM format
-  const paddedHour = hour.padStart(2, '0')
-  const paddedMinute = minute.padStart(2, '0')
-  return `${paddedHour}:${paddedMinute}`
+  return `${hour}:${minute}`
 }
 
 export default function OpeningHoursForm({
@@ -174,44 +171,6 @@ export default function OpeningHoursForm({
         throw new Error('Admin secret not configured')
       }
 
-      // Format times to ensure HH:MM format
-      const formattedHours = hours.map((h) => {
-        const formatted: any = {
-          dayOfWeek: h.dayOfWeek,
-          isOpen: h.isOpen,
-        }
-        
-        if (h.isOpen) {
-          // Ensure times are in HH:MM format
-          if (h.openTime) {
-            const [hour, minute] = h.openTime.split(':')
-            if (hour && minute) {
-              formatted.openTime = `${hour.padStart(2, '0')}:${minute.padStart(2, '0')}`
-            } else {
-              formatted.openTime = null
-            }
-          } else {
-            formatted.openTime = null
-          }
-          
-          if (h.closeTime) {
-            const [hour, minute] = h.closeTime.split(':')
-            if (hour && minute) {
-              formatted.closeTime = `${hour.padStart(2, '0')}:${minute.padStart(2, '0')}`
-            } else {
-              formatted.closeTime = null
-            }
-          } else {
-            formatted.closeTime = null
-          }
-        } else {
-          formatted.openTime = null
-          formatted.closeTime = null
-        }
-        
-        return formatted
-      })
-
       const response = await fetch(`/api/opening-hours`, {
         method: 'POST',
         headers: {
@@ -219,7 +178,12 @@ export default function OpeningHoursForm({
           'x-admin-secret': adminSecret,
         },
         body: JSON.stringify({
-          hours: formattedHours,
+          hours: hours.map((h) => ({
+            dayOfWeek: h.dayOfWeek,
+            isOpen: h.isOpen,
+            openTime: h.openTime || null,
+            closeTime: h.closeTime || null,
+          })),
         }),
       })
 
